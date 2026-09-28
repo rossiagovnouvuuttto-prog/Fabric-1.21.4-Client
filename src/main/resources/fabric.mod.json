@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "fabric1214client",
+  "id": "customminecraft",
   "version": "${version}",
-  "name": "Fabric 1.21.4 Client",
-  "description": "Fabric client project for Minecraft 1.21.4.",
+  "name": "Custom Minecraft 1.21.4 Runtime",
+  "description": "Private runtime patch layer for the user's custom Minecraft 1.21.4 Fabric profile.",
   "authors": [
     "Knight"
   ],
@@ -11,9 +11,12 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.knight.fabric1214.ClientMain"
+      "dev.knight.customminecraft.CustomMinecraft"
     ]
   },
+  "mixins": [
+    "customminecraft.client.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.16.14",
     "minecraft": "~1.21.4",
