@@ -1,4 +1,4 @@
-name: Build Fabric 1.21.4
+name: Build Custom Minecraft 1.21.4 Fabric
 
 on:
   push:
@@ -29,23 +29,31 @@ jobs:
         with:
           gradle-version: "8.12"
 
-      - name: Build
+      - name: Build custom runtime
         run: gradle --no-daemon clean build
 
-      - name: Prepare ready JAR
+      - name: Prepare FCL installer bundle
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p dist
+          OUT="dist/Custom-Minecraft-1.21.4-Fabric"
+          mkdir -p "$OUT"
+
           JAR="$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-dev.jar' | head -n 1)"
           test -n "$JAR"
-          cp "$JAR" dist/Fabric-1.21.4-Client.jar
-          ls -lh dist/Fabric-1.21.4-Client.jar
 
-      - name: Upload ready JAR
+          cp "$JAR" "$OUT/custom-minecraft-runtime.jar"
+          cp installer/install-fcl.sh "$OUT/install-fcl.sh"
+          cp installer/README-INSTALL.txt "$OUT/README-INSTALL.txt"
+          chmod +x "$OUT/install-fcl.sh"
+
+          echo "Bundle contents:"
+          find "$OUT" -maxdepth 1 -type f -printf '%f %s bytes\n'
+
+      - name: Upload custom Minecraft version
         uses: actions/upload-artifact@v4
         with:
-          name: Fabric-1.21.4-Client
-          path: dist/Fabric-1.21.4-Client.jar
+          name: Custom-Minecraft-1.21.4-Fabric
+          path: dist/Custom-Minecraft-1.21.4-Fabric/
           if-no-files-found: error
           retention-days: 30
