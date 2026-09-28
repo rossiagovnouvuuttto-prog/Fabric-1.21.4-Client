@@ -25,7 +25,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        "fabric1214client" {
+        "customminecraft" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
@@ -34,6 +34,7 @@ loom {
 
 processResources {
     inputs.property "version", project.version
+
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
