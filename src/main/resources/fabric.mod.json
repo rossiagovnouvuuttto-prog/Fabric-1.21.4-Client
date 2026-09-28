@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "fabric1214client",
+  "version": "${version}",
+  "name": "Fabric 1.21.4 Client",
+  "description": "Fabric client project for Minecraft 1.21.4.",
+  "authors": [
+    "Knight"
+  ],
+  "license": "CC0-1.0",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.knight.fabric1214.ClientMain"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
